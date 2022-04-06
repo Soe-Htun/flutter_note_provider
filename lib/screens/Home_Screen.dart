@@ -10,27 +10,53 @@ class Home_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple[600],
-     appBar: AppBar(
-         titleSpacing: 0.0,
-       toolbarHeight: 200,
-       title: Image.network("https://9to5mac.com/wp-content/uploads/sites/6/2019/11/how-to-quickly-select-move-delete-notes-iphone-ipad-two-finger-tap.jpeg?quality=82&strip=all",fit: BoxFit.cover,)
-     ),
+      // backgroundColor: Colors.purple[600],
+      backgroundColor: Colors.lightBlue[900],
+    //  appBar: AppBar(
+    //      titleSpacing: 0.0,
+    //    toolbarHeight: 200,
+    //    title: Image.network("https://9to5mac.com/wp-content/uploads/sites/6/2019/11/how-to-quickly-select-move-delete-notes-iphone-ipad-two-finger-tap.jpeg?quality=82&strip=all",fit: BoxFit.cover,)
+    //  ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<NotesProviders>(
-          builder: (context,NotesProviders data,child){
-            return data.getNotes.length !=0 ? ListView.builder(
-              itemCount: data.getNotes.length,
-              itemBuilder: (context,index){
-                return CardList(data.getNotes[index],index);
-              },
-            ): GestureDetector(onTap: (){
-              showAlertDialog(context);
-            },child: Center(child: Text("ADD SOME NOTES NOW",style: TextStyle(color: Colors.white,),)));
-          },
-        ),
+      body: Column(
+        children: [
+          // Image.network("https://9to5mac.com/wp-content/uploads/sites/6/2019/11/how-to-quickly-select-move-delete-notes-iphone-ipad-two-finger-tap.jpeg?quality=82&strip=all",height: 150, width: double.infinity,fit: BoxFit.cover,),
+          Padding(
+            padding: const EdgeInsets.only(top:30, bottom: 30),
+            child: Text("Node Provider" ,style: TextStyle(color: Colors.white70, fontSize: 45, fontWeight: FontWeight.bold)),
+          ), 
+          Expanded(
+
+            child: Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(50), topLeft: Radius.circular(60)), color: Colors.white),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Consumer<NotesProviders>(
+                  builder: (context,NotesProviders data,child){
+                    return data.getNotes.length !=0 ?
+                     Container(
+                       decoration: const BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40.0),
+                              topRight: Radius.circular(40.0),
+                            )
+                          ),
+                       child: ListView.builder(
+                        itemCount: data.getNotes.length,
+                        itemBuilder: (context,index){
+                          return CardList(data.getNotes[index],index);
+                        },
+                    ),
+                     ): GestureDetector(onTap: (){
+                      showAlertDialog(context);
+                    },child: Center(child: Text("ADD SOME NOTES NOW",style: TextStyle(color: Colors.white,),)));
+                  },
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
 
       floatingActionButton: FloatingActionButton(onPressed: () {
